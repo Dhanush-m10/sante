@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "Price": {
+      "title": "Price",
+      "description": "Daily Mandi price for a commodity",
+      "type": "object",
+      "properties": {
+        "commodity": { "type": "string" },
+        "mandiPrice": { "type": "number" },
+        "unit": { "type": "string" },
+        "market": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "trend": { "type": "string", "enum": ["up", "down", "stable"] },
+        "history": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      },
+      "required": ["commodity", "mandiPrice", "unit", "updatedAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A community message or doubt from a vendor",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "text": { "type": "string" },
+        "market": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/prices/{priceId}": {
+      "schema": "Price",
+      "description": "A collection of current mandi prices for various commodities."
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Community chat messages for vendors."
+    }
+  }
+}
